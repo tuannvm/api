@@ -11,7 +11,12 @@ var TestController = {
       date: req.param('date'),
       creator: req.param('creator'),
       content: req.param('content')
-    },
+    }).exec(function (err) {
+      if(err) {
+        return res.negotiate(err);
+      }
+      res.ok("sucessful input!");
+    });
     /*var a = {
       name: req.param('name'),
       date: req.param('date'),
@@ -22,10 +27,12 @@ var TestController = {
 
   },
   show: function (req,res) {
-    Test.find().exec(function (data) {
+    //res.json(Test.show);
+    Test.find().exec(function (err,data) {
       res.json(data);
     })
   }
+
 };
 
 module.exports = TestController;
